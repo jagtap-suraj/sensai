@@ -11,7 +11,9 @@ interface UseFetchResult<T, Args extends any[]> {
   setData: React.Dispatch<React.SetStateAction<T | undefined>>;
 }
 
-const useFetch = <T, Args extends any[]>(cb: FetchCallback<T, Args>): UseFetchResult<T, Args> => {
+const useFetch = <T, Args extends any[]>(
+  cb: FetchCallback<T, Args>
+): UseFetchResult<T, Args> => {
   const [data, setData] = useState<T | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);

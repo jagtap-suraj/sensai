@@ -15,17 +15,19 @@ export const getUserFromAuth = async () => {
   // If user doesn't exist in our database, create one from Clerk data
   if (!dbUser) {
     const clerkUser = await currentUser();
-    
+
     if (!clerkUser) {
       throw new Error("Clerk user not found");
     }
-    
+
     // Create user record
     dbUser = await db.user.create({
       data: {
         clerkUserId: userId,
         email: clerkUser.emailAddresses[0]?.emailAddress || "",
-        name: `${clerkUser.firstName || ""} ${clerkUser.lastName || ""}`.trim() || null,
+        name:
+          `${clerkUser.firstName || ""} ${clerkUser.lastName || ""}`.trim() ||
+          null,
         imageUrl: clerkUser.imageUrl || null,
         skills: [],
       },

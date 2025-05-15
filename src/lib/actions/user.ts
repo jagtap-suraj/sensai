@@ -3,6 +3,7 @@
 import { db } from "@/lib/prisma";
 import { getUserFromAuth } from "@/lib/actions/auth";
 import { revalidatePath } from "next/cache";
+import { generateAIInsights } from "./dashboard";
 
 export const updateUser = async (data: any) => {
   const user = await getUserFromAuth();
@@ -21,17 +22,13 @@ export const updateUser = async (data: any) => {
 
         // If industry doesn't exist, create it with default values
         if (!industryInsight) {
-          industryInsight = await tx.industryInsight.create({
+          const insights = await generateAIInsights(data.industry);
+
+          industryInsight = await db.industryInsight.create({
             data: {
               industry: data.industry,
-              salaryRanges: [], // Default empty array
-              growthRate: 0, // Default value
-              demandLevel: "MEDIUM", // Default value
-              topSkills: [], // Default empty array
-              marketOutlook: "NEUTRAL", // Default value
-              keyTrends: [], // Default empty array
-              recommendedSkills: [], // Default empty array
-              nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week from now
+              ...insights,
+              nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
             },
           });
         }
@@ -60,10 +57,10 @@ export const updateUser = async (data: any) => {
     revalidatePath("/");
     revalidatePath("/dashboard");
     revalidatePath("/onboarding");
-    
-    return { 
+
+    return {
       success: true,
-      user: result.updatedUser 
+      user: result.updatedUser,
     };
   } catch (error) {
     if (error instanceof Error) {
@@ -76,7 +73,7 @@ export const updateUser = async (data: any) => {
 
 export const getUserOnboardingStatus = async () => {
   const authUser = await getUserFromAuth();
-  
+
   if (!authUser) {
     return { isOnboarded: false };
   }

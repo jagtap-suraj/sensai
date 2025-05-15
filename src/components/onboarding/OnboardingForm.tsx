@@ -47,7 +47,9 @@ interface OnboardingFormProps {
 
 const OnboardingForm = ({ industries }: OnboardingFormProps) => {
   const router = useRouter();
-  const [selectedIndustry, setSelectedIndustry] = useState<Industry | null>(null);
+  const [selectedIndustry, setSelectedIndustry] = useState<Industry | null>(
+    null
+  );
 
   const {
     loading: updateLoading,
@@ -83,10 +85,10 @@ const OnboardingForm = ({ industries }: OnboardingFormProps) => {
   useEffect(() => {
     if (updateResult?.success && !updateLoading) {
       toast.success("Profile completed successfully!");
-      
+
       // Force a server-side refresh to update the onboarding status
       router.refresh();
-      
+
       // Small delay before redirecting to ensure server state is updated
       setTimeout(() => {
         router.push("/dashboard");
@@ -198,7 +200,9 @@ const OnboardingForm = ({ industries }: OnboardingFormProps) => {
                 Separate multiple skills with commas
               </p>
               {errors.skills && (
-                <p className="text-sm text-red-500">{errors.skills.message as string}</p>
+                <p className="text-sm text-red-500">
+                  {errors.skills.message as string}
+                </p>
               )}
             </div>
 
@@ -211,7 +215,9 @@ const OnboardingForm = ({ industries }: OnboardingFormProps) => {
                 {...register("bio")}
               />
               {errors.bio && (
-                <p className="text-sm text-red-500">{errors.bio.message as string}</p>
+                <p className="text-sm text-red-500">
+                  {errors.bio.message as string}
+                </p>
               )}
             </div>
 
