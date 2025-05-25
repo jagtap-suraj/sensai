@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Quiz from "@/components/interview/Quiz";
 
 export default function MockInterviewPage() {
   return (
@@ -21,7 +22,9 @@ export default function MockInterviewPage() {
         </div>
       </div>
 
-      {/* <Quiz /> */}
+      <div>
+        <Quiz />
+      </div>
     </div>
   );
 }

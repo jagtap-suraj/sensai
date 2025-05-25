@@ -42,7 +42,7 @@ export default function RootLayout({
             <footer className="bg-muted/50 py-12">
               <div className="container mx-auto px-4 text-center text-gray-200">
                 <p>
-                  © {new Date().getFullYear()} Bachat |
+                  © {new Date().getFullYear()} SensAI |
                   <a
                     href="https://github.com/jagtap-suraj/sensai"
                     target="_blank"

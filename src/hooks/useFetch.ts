@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { toast } from "sonner";
 
-type FetchCallback<T, Args extends any[]> = (...args: Args) => Promise<T>;
+type FetchCallback<T, Args extends any[]> = (
+  ...args: Args
+) => Promise<T | null>;
 
 interface UseFetchResult<T, Args extends any[]> {
   data: T | undefined;
@@ -24,7 +26,9 @@ const useFetch = <T, Args extends any[]>(
 
     try {
       const response = await cb(...args);
-      setData(response);
+      if (response !== null) {
+        setData(response);
+      }
       setError(null);
     } catch (error) {
       setError(error as Error);
