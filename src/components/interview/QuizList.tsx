@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -88,8 +88,8 @@ const QuizList = ({ assessments }: QuizListProps) => {
               ))
             ) : (
               <p className="text-center text-muted-foreground py-8">
-                You haven't taken any quizzes yet. Get started by taking your
-                first quiz!
+                You haven&apos;t taken any quizzes yet. Get started by taking
+                your first quiz!
               </p>
             )}
           </div>

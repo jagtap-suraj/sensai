@@ -2,7 +2,7 @@ import DashboardView from "@/components/dashboard/DashboardView";
 import { getIndustryInsights } from "@/lib/actions/dashboard";
 import { getUserOnboardingStatus } from "@/lib/actions/user";
 import { redirect } from "next/navigation";
-import { IndustryInsights, SalaryRange } from "@/types/industry";
+import { IndustryInsights } from "@/types/industry";
 
 export default async function DashboardPage() {
   const onboardingStatus = await getUserOnboardingStatus();
@@ -20,15 +20,21 @@ export default async function DashboardPage() {
   }
 
   // Parse salary ranges from JSON to strongly typed objects
-  const parsedSalaryRanges = (dbInsights.salaryRanges as any[]).map(
-    (range: any) => ({
-      role: range.role,
-      min: range.min,
-      max: range.max,
-      median: range.median,
-      location: range.location,
-    })
-  );
+  const parsedSalaryRanges = (
+    dbInsights.salaryRanges as Array<{
+      role: string;
+      min: number;
+      max: number;
+      median: number;
+      location: string;
+    }>
+  ).map((range) => ({
+    role: range.role,
+    min: range.min,
+    max: range.max,
+    median: range.median,
+    location: range.location,
+  }));
 
   // Cast and transform the database result to match our IndustryInsights type
   const insights: IndustryInsights = {

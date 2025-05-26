@@ -8,7 +8,7 @@ const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 export const generateIndustryInsights = inngest.createFunction(
   { id: "generate-industry-insights", name: "Generate Industry Insights" },
   { cron: "0 0 * * 0" }, // Run every Sunday at midnight
-  async ({ event, step }) => {
+  async ({ step }) => {
     const industries = await step.run("Fetch industries", async () => {
       return await db.industryInsight.findMany({
         select: { industry: true },
@@ -48,7 +48,7 @@ export const generateIndustryInsights = inngest.createFunction(
       if (res.response?.candidates?.[0]?.content?.parts?.[0]) {
         const part = res.response.candidates[0].content.parts[0];
         // Check if text property exists on the part object
-        const text = 'text' in part ? part.text || "" : "";
+        const text = "text" in part ? part.text || "" : "";
         cleanedText = text.replace(/```(?:json)?\n?/g, "").trim();
       }
 

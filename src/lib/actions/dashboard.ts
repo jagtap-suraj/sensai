@@ -2,9 +2,8 @@
 
 import { db } from "@/lib/prisma";
 import { getUserFromAuth } from "./auth";
-import { auth } from "@clerk/nextjs/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { IndustryInsights, SalaryRange } from "@/types/industry";
+import { IndustryInsights } from "@/types/industry";
 
 // Check if API key exists
 const apiKey = process.env.GEMINI_API_KEY;
@@ -48,7 +47,7 @@ export const generateAIInsights = async (industry: string | null) => {
   return JSON.parse(cleanedText);
 };
 
-export const getIndustryInsights = async (): Promise<any | null> => {
+export const getIndustryInsights = async (): Promise<IndustryInsights | null> => {
   const user = await getUserFromAuth();
   if (!user) return null;
 
@@ -71,7 +70,7 @@ export const getIndustryInsights = async (): Promise<any | null> => {
       });
     }
 
-    return industryInsight;
+    return industryInsight as unknown as IndustryInsights;
   }
 
   return null;

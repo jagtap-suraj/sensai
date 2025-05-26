@@ -81,8 +81,10 @@ const Quiz = () => {
     try {
       await saveQuizResultFn(quizData, answers, score);
       toast.success("Quiz completed!");
-    } catch (error: any) {
-      toast.error(error.message || "Failed to save quiz results");
+    } catch (error: unknown) {
+      toast.error(
+        error instanceof Error ? error.message : "Failed to save quiz results"
+      );
     }
   };
 

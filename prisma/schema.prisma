@@ -52,14 +52,145 @@ model Assessment {
 }
 
 model Resume {
-  id          String    @id @default(cuid())
-  userId      String    @unique    // One resume per user
-  user        User      @relation(fields: [userId], references: [id])
-  content     String    @db.Text // Markdown content
-  atsScore    Float?
-  feedback    String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id            String    @id @default(cuid())
+  userId        String    @unique    // One resume per user
+  user          User      @relation(fields: [userId], references: [id])
+  
+  // Contact information
+  firstName     String?
+  lastName      String?
+  email         String
+  countryCode   String?
+  phone         String?
+  address       String?
+  city          String?
+  state         String?
+  zipCode       String?
+  linkedin      String?
+  github        String?
+  
+  // Resume content
+  summary       String?   @db.Text
+  
+  // Relations to other tables
+  education     Education[]
+  experience    Experience[]
+  projects      Project[]
+  coursework    Coursework[]
+  skills        Skill[]
+  leadership    Leadership[]
+  certifications Certification[]
+  
+  // Metrics
+  atsScore      Float?
+  feedback      String?
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Education {
+  id            String    @id @default(cuid())
+  resumeId      String
+  resume        Resume    @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  
+  title         String    // Degree
+  organization  String    // School/University
+  location      String?   // City, State
+  gpa           String?   // GPA (stored as string to allow formats like "3.8/4.0")
+  startDate     DateTime
+  endDate       DateTime?
+  current       Boolean   @default(false)
+  description   String?   @db.Text  // Optional description
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  @@index([resumeId])
+}
+
+model Experience {
+  id            String    @id @default(cuid())
+  resumeId      String
+  resume        Resume    @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  
+  title         String    // Job title
+  organization  String    // Company
+  location      String?   // City, State
+  startDate     DateTime
+  endDate       DateTime?
+  current       Boolean   @default(false)
+  description   String    @db.Text
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  @@index([resumeId])
+}
+
+model Project {
+  id            String    @id @default(cuid())
+  resumeId      String
+  resume        Resume    @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  
+  title         String
+  organization  String?   // Optional associated organization
+  technologies  String?   // Technologies used (e.g., "Python, React")
+  deployedLink  String?   // URL to deployed project
+  startDate     DateTime?
+  endDate       DateTime?
+  current       Boolean   @default(false)
+  description   String    @db.Text
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  @@index([resumeId])
+}
+
+model Coursework {
+  id            String    @id @default(cuid())
+  resumeId      String
+  resume        Resume    @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  
+  name          String
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  @@index([resumeId])
+}
+
+model Skill {
+  id            String    @id @default(cuid())
+  resumeId      String
+  resume        Resume    @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  
+  category      String    // "Language", "Tool", "Framework"
+  name          String
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  @@index([resumeId])
+}
+
+model Leadership {
+  id            String    @id @default(cuid())
+  resumeId      String
+  resume        Resume    @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  
+  title         String    // Position
+  organization  String    // Organization name
+  startDate     DateTime
+  endDate       DateTime?
+  current       Boolean   @default(false)
+  description   String    @db.Text
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  @@index([resumeId])
 }
 
 model CoverLetter {
@@ -133,5 +264,24 @@ model Interview {
   updatedAt       DateTime  @updatedAt
 
   @@index([userId])
+}
+
+model Certification {
+  id            String    @id @default(cuid())
+  resumeId      String
+  resume        Resume    @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  
+  name          String
+  issuer        String
+  issueDate     DateTime
+  expiryDate    DateTime?
+  credentialId  String?
+  credentialUrl String?
+  description   String?   @db.Text
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  @@index([resumeId])
 }
 

@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { toast } from "sonner";
 
-type FetchCallback<T, Args extends any[]> = (
+type FetchCallback<T, Args extends unknown[]> = (
   ...args: Args
 ) => Promise<T | null>;
 
-interface UseFetchResult<T, Args extends any[]> {
+interface UseFetchResult<T, Args extends unknown[]> {
   data: T | undefined;
   loading: boolean;
   error: Error | null;
@@ -13,7 +13,7 @@ interface UseFetchResult<T, Args extends any[]> {
   setData: React.Dispatch<React.SetStateAction<T | undefined>>;
 }
 
-const useFetch = <T, Args extends any[]>(
+const useFetch = <T, Args extends unknown[]>(
   cb: FetchCallback<T, Args>
 ): UseFetchResult<T, Args> => {
   const [data, setData] = useState<T | undefined>(undefined);

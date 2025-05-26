@@ -5,7 +5,15 @@ import { getUserFromAuth } from "@/lib/actions/auth";
 import { revalidatePath } from "next/cache";
 import { generateAIInsights } from "./dashboard";
 
-export const updateUser = async (data: any) => {
+interface UpdateUserData {
+  industry: string;
+  experience: number;
+  bio?: string;
+  skills?: string[] | undefined;
+  subIndustry: string;
+}
+
+export const updateUser = async (data: UpdateUserData) => {
   const user = await getUserFromAuth();
   if (!user) return;
 
