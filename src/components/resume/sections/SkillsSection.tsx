@@ -19,12 +19,12 @@ interface SkillsSectionProps {
   autoSave?: boolean;
 }
 
-export default function SkillsSection({
+const SkillsSection = ({
   skills,
   onChange,
   isEditMode = true,
   autoSave = true,
-}: SkillsSectionProps) {
+}: SkillsSectionProps) => {
   const [newSkill, setNewSkill] = useState("");
   const [newSkillCategory, setNewSkillCategory] = useState("");
   const [customCategory, setCustomCategory] = useState("");
@@ -262,4 +262,6 @@ export default function SkillsSection({
       )}
     </div>
   );
-}
+};
+
+export default SkillsSection;

@@ -8,9 +8,7 @@ interface DownloadResumeButtonProps {
   className?: string;
 }
 
-export default function DownloadResumeButton({
-  className,
-}: DownloadResumeButtonProps) {
+const DownloadResumeButton = ({ className }: DownloadResumeButtonProps) => {
   const { generatePdf, isGenerating, progress } = useResumePdf();
 
   return (
@@ -37,4 +35,6 @@ export default function DownloadResumeButton({
       )}
     </Button>
   );
-}
+};
+
+export default DownloadResumeButton;

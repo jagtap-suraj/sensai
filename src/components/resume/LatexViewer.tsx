@@ -16,11 +16,7 @@ interface LatexViewerProps {
   onOpenChange: (open: boolean) => void;
 }
 
-export default function LatexViewer({
-  latexCode,
-  isOpen,
-  onOpenChange,
-}: LatexViewerProps) {
+const LatexViewer = ({ latexCode, isOpen, onOpenChange }: LatexViewerProps) => {
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = async () => {
@@ -67,4 +63,6 @@ export default function LatexViewer({
       </DialogContent>
     </Dialog>
   );
-}
+};
+
+export default LatexViewer;

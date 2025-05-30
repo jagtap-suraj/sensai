@@ -10,7 +10,7 @@ interface ViewLatexButtonProps {
   className?: string;
 }
 
-export default function ViewLatexButton({ className }: ViewLatexButtonProps) {
+const ViewLatexButton = ({ className }: ViewLatexButtonProps) => {
   const [isLatexViewerOpen, setIsLatexViewerOpen] = useState(false);
   const [latexCode, setLatexCode] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,4 +47,6 @@ export default function ViewLatexButton({ className }: ViewLatexButtonProps) {
       />
     </>
   );
-}
+};
+
+export default ViewLatexButton;

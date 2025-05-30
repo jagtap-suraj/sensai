@@ -29,9 +29,7 @@ interface PerformanceChartProps {
   assessments: AssessmentResult[];
 }
 
-export default function PerformanceChart({
-  assessments,
-}: PerformanceChartProps) {
+const PerformanceChart = ({ assessments }: PerformanceChartProps) => {
   const [chartData, setChartData] = useState<ChartDataPoint[]>([]);
 
   useEffect(() => {
@@ -88,4 +86,6 @@ export default function PerformanceChart({
       </CardContent>
     </Card>
   );
-}
+};
+
+export default PerformanceChart;

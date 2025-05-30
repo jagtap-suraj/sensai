@@ -38,7 +38,7 @@ interface ResumeFormProps {
   initialData?: Resume | null;
 }
 
-export default function ResumeForm({ initialData }: ResumeFormProps) {
+const ResumeForm = ({ initialData }: ResumeFormProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [activeTab, setActiveTab] = useState("info");
   const [isEditMode, setIsEditMode] = useState(!initialData);
@@ -170,9 +170,9 @@ export default function ResumeForm({ initialData }: ResumeFormProps) {
   );
 
   return (
-    <div className="space-y-6 px-4 sm:px-6 md:px-0">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">Resume Builder</h1>
+    <div className="space-y-6">
+      <div className="flex flex-col md:flex-row gap-2 items-center justify-between mb-5">
+        <h1 className="text-6xl font-bold gradient-title">Resume Builder</h1>
         <div className="flex gap-2">
           {!isEditMode && (
             <>
@@ -507,4 +507,6 @@ export default function ResumeForm({ initialData }: ResumeFormProps) {
       </Tabs>
     </div>
   );
-}
+};
+
+export default ResumeForm;

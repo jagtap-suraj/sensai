@@ -8,6 +8,7 @@ import {
   GraduationCap,
   LayoutDashboard,
   PenBox,
+  Settings,
   StarsIcon,
 } from "lucide-react";
 import {
@@ -67,7 +68,7 @@ const Header = async () => {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link
-                    href="/ai-cover-letter"
+                    href="/cover-letter"
                     className="flex items-center gap-2"
                   >
                     <PenBox className="h-4 w-4" />
@@ -77,11 +78,23 @@ const Header = async () => {
                 <DropdownMenuItem asChild>
                   <Link href="/interview" className="flex items-center gap-2">
                     <GraduationCap className="h-4 w-4" />
-                    Interview Prep
+                    Quiz
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+
+            {/* Profile Settings Button */}
+            <Link href="/profile">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="w-10 h-10"
+                title="Profile Settings"
+              >
+                <Settings className="h-4 w-4" />
+              </Button>
+            </Link>
           </SignedIn>
 
           <SignedOut>

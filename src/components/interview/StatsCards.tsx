@@ -6,7 +6,7 @@ interface StatsCardsProps {
   assessments: AssessmentResult[];
 }
 
-export default function StatsCards({ assessments }: StatsCardsProps) {
+const StatsCards = ({ assessments }: StatsCardsProps) => {
   const getAverageScore = () => {
     if (!assessments?.length) return 0;
     const total = assessments.reduce(
@@ -71,4 +71,6 @@ export default function StatsCards({ assessments }: StatsCardsProps) {
       </Card>
     </div>
   );
-}
+};
+
+export default StatsCards;

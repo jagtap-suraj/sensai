@@ -15,12 +15,12 @@ interface ProjectSectionProps {
   autoSave?: boolean;
 }
 
-export default function ProjectSection({
+const ProjectSection = ({
   projects,
   onChange,
   isEditMode = true,
   autoSave = true,
-}: ProjectSectionProps) {
+}: ProjectSectionProps) => {
   const [isAdding, setIsAdding] = useState(false);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
@@ -378,4 +378,6 @@ export default function ProjectSection({
         )}
     </div>
   );
-}
+};
+
+export default ProjectSection;

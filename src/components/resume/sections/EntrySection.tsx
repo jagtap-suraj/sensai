@@ -17,13 +17,13 @@ interface EntrySectionProps {
 }
 
 // EntrySection Component (for experience, education, projects, leadership)
-export default function EntrySection({
+const EntrySection = ({
   type,
   entries,
   onChange,
   isEditMode = true,
   autoSave = true,
-}: EntrySectionProps) {
+}: EntrySectionProps) => {
   const [isAdding, setIsAdding] = useState(false);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
@@ -394,4 +394,6 @@ export default function EntrySection({
         )}
     </div>
   );
-}
+};
+
+export default EntrySection;

@@ -12,12 +12,12 @@ interface CourseworkSectionProps {
   autoSave?: boolean;
 }
 
-export default function CourseworkSection({
+const CourseworkSection = ({
   coursework,
   onChange,
   isEditMode = true,
   autoSave = true,
-}: CourseworkSectionProps) {
+}: CourseworkSectionProps) => {
   const [newCourse, setNewCourse] = useState("");
 
   const handleAddCourse = () => {
@@ -88,4 +88,6 @@ export default function CourseworkSection({
       )}
     </div>
   );
-}
+};
+
+export default CourseworkSection;

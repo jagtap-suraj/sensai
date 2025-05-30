@@ -18,12 +18,12 @@ interface CertificationSectionProps {
   autoSave: boolean;
 }
 
-export default function CertificationSection({
+const CertificationSection = ({
   certifications,
   onChange,
   isEditMode,
   autoSave,
-}: CertificationSectionProps) {
+}: CertificationSectionProps) => {
   const [isAdding, setIsAdding] = useState(false);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
@@ -379,4 +379,6 @@ export default function CertificationSection({
         )}
     </div>
   );
-}
+};
+
+export default CertificationSection;

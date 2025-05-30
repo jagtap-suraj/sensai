@@ -2,6 +2,9 @@ import ResumeForm from "@/components/resume/ResumeForm";
 import { getResume } from "@/lib/actions/resume";
 import { Resume } from "@/types/resume";
 
+// Add dynamic export configuration
+export const dynamic = "force-dynamic";
+
 export default async function ResumePage() {
   let resume = null;
 
@@ -13,7 +16,7 @@ export default async function ResumePage() {
   }
 
   return (
-    <div className="py-8">
+    <div>
       <ResumeForm initialData={resume} />
     </div>
   );
