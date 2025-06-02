@@ -35,6 +35,7 @@ model User {
   resume        Resume?
   coverLetter   CoverLetter[]
   interviews    Interview[]
+  liveInterviews LiveInterview[]
 }
 
 model Assessment {
@@ -283,5 +284,45 @@ model Certification {
   updatedAt     DateTime  @updatedAt
   
   @@index([resumeId])
+}
+
+model LiveInterview {
+  id            String    @id @default(cuid())
+  userId        String    // Foreign key to your User model
+  user          User      @relation(fields: [userId], references: [id]) // Assumes you have a User model
+  userName      String?   // User's name for this interview
+  targetRole    String?   // Role they are targeting
+  jobLevel      JobLevel? // Renamed from targetLevel
+  resumeText    String?   @db.Text // Parsed text from their resume
+  // initialPrompt String?   @db.Text // The initial prompt/context given to Gemini Live API
+  transcript    String?   @db.Text // Full transcript of the audio interview
+  feedback      String?   @db.Text // AI-generated feedback post-interview
+  status        String    // e.g., "SETUP_PENDING", "IN_PROGRESS", "COMPLETED", "ERROR"
+  type          InterviewType? // Added new type field
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  // You could also add fields for Gemini session IDs, error messages, etc.
+}
+
+enum InterviewType {
+  TECHNICAL
+  BEHAVIOURAL
+  MIXED
+}
+
+enum JobLevel {
+  INTERN
+  ENTRY_LEVEL
+  JUNIOR
+  ASSOCIATE
+  MID_LEVEL
+  SENIOR
+  LEAD
+  PRINCIPAL
+  STAFF
+  MANAGER
+  SENIOR_MANAGER
+  DIRECTOR
+  EXECUTIVE
 }
 

@@ -10,6 +10,7 @@ import {
   PenBox,
   Settings,
   StarsIcon,
+  Mic2,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -79,6 +80,12 @@ const Header = async () => {
                   <Link href="/interview" className="flex items-center gap-2">
                     <GraduationCap className="h-4 w-4" />
                     Quiz
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/interview/live" className="flex items-center gap-2">
+                    <Mic2 className="h-4 w-4" />
+                    Live Interview
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>

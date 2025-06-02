@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
-import { Edit2, Trash2 } from "lucide-react";
+import { Edit2, Trash2, Copy } from "lucide-react";
 import { toast } from "sonner";
 import {
   Card,
@@ -40,6 +40,27 @@ interface CoverLetterListProps {
 
 const CoverLetterList = ({ coverLetters }: CoverLetterListProps) => {
   const router = useRouter();
+
+  const stripLeadingDate = (text: string): string => {
+    const dateRegex =
+      /^\s*(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+\d{4}\s*\n?/i;
+    return text.replace(dateRegex, "").trimStart();
+  };
+
+  const handleCopyToList = (content: string) => {
+    if (content) {
+      const textToCopy = stripLeadingDate(content);
+      navigator.clipboard
+        .writeText(textToCopy)
+        .then(() => {
+          toast.success("Cover letter content copied!");
+        })
+        .catch((err) => {
+          console.error("Failed to copy content from list: ", err);
+          toast.error("Failed to copy content.");
+        });
+    }
+  };
 
   const handleDelete = async (id: string) => {
     try {
@@ -98,15 +119,28 @@ const CoverLetterList = ({ coverLetters }: CoverLetterListProps) => {
                   variant="outline"
                   size="icon"
                   onClick={(e) => handleEditClick(e, letter.id)}
+                  title="Edit Cover Letter"
                 >
                   <Edit2 className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent card click
+                    handleCopyToList(letter.content);
+                  }}
+                  title="Copy Cover Letter"
+                >
+                  <Copy className="h-4 w-4" />
                 </Button>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
                     <Button
                       variant="outline"
                       size="icon"
-                      onClick={(e) => e.stopPropagation()} // Prevent card click
+                      className="text-destructive hover:text-destructive-foreground hover:bg-destructive/80"
+                      onClick={(e) => e.stopPropagation()}
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
